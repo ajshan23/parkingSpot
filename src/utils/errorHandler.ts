@@ -12,7 +12,8 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
         });
         return;
     }
-
+    console.log(err);
+    
     // Fallback for unhandled errors
     res.status(500).json({
         success: false,

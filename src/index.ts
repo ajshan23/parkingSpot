@@ -7,6 +7,11 @@ import dotenv from "dotenv";
 import { connectDB } from "./config/dbConfig";
 import { ApiError } from "./utils/apiHandlerHelpers";
 import { errorHandler } from "./utils/errorHandler";
+
+import userRouter from "@/routes/userRoutes";
+import spotRouter from "@/routes/spotRoutes";
+import parkRouter from "@/routes/parkRouter";
+
 dotenv.config({});
 
 const app = express();
@@ -26,6 +31,10 @@ app.use(helmet());
 app.get('/', (req: Request, res: Response) => {
     res.send('Hello, Secure and Logged World!');
 });
+app.use("/api/auth", userRouter);
+app.use("/api/spots", spotRouter);
+app.use("/api/park", parkRouter);
+
 app.use((req: Request, res: Response, next: NextFunction) => {
     throw new ApiError(404, "Route not found");
 });
